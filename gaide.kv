@@ -1,0 +1,78 @@
+<ScreenOne>:
+    last_text_input: user_word  
+    
+    BoxLayout:
+        padding:300
+        orientation:"vertical"  
+    	Label:
+            text: "Let's test your pronunciation:"
+            font_size : 50
+        TextInput:
+            id: user_word
+            font_size : 50
+            # top, bottom
+            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+        Button:
+            text: "I want to test this word"
+            font_size : 50
+            on_press: root.submit_word() 
+            on_release: root.manager.current="screen2"  
+        
+                 
+
+	    
+		
+
+
+<ScreenTwo>:
+	               
+    BoxLayout:
+	    orientation:"vertical" 
+        padding:300
+        Button:
+            id: start_button
+            text: 'Start Recording'
+            font_size : 50
+            on_release: root.record()
+
+	    Button:
+            id: score_display_button
+	        text: 'Show me my score'
+            font_size : 50
+            on_release: root.manager.current = "screen3"
+
+<ScreenThree>
+    
+    BoxLayout:
+        padding: 300
+        orientation:"vertical"
+        Label:
+            text: "You got " + root.score + " !"
+            font_size : 100
+        Button: 
+            text:"Test Again"
+            font_size : 50
+            on_release: root.manager.current= "screen1"
+
+
+<Manager>:
+    id: screen_manager
+
+    screen_one: screen_one
+    screen_two: screen_two
+    screen_three: screen_three
+
+    ScreenOne:
+        id: screen_one
+        name: "screen1"
+        manager: screen_manager
+
+    ScreenTwo:
+        id: screen_two
+        name: "screen2"
+        manager: screen_manager
+    
+    ScreenThree:
+	    id: screen_three
+        name: "screen3"
+	    manager: screen_manager
